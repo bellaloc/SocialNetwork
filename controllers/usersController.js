@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User } = require('../routes');
 
 const usersController = {
   // Get all users
