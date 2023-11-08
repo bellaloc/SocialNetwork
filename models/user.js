@@ -25,13 +25,10 @@ const userSchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
-  // Additional fields you may want to include
-  // For example, you can add a "password" field for authentication
   password: {
     type: String,
     required: true,
   },
-  // You can also include a "createdAt" field to track the user's registration date
   createdAt: {
     type: Date,
     default: Date.now,

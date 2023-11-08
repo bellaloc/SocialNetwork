@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const reactionSchema = new mongoose.Schema(
   {
@@ -25,7 +26,6 @@ const reactionSchema = new mongoose.Schema(
   }
 );
 
-// Function to format the timestamp (you may need to define dateFormat)
 reactionSchema.virtual('formattedCreatedAt').get(function () {
   return this.createdAt;
 });

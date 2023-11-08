@@ -17,7 +17,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network'
 
 // API routes
 app.use('/api/users', require('./routes/api/users'));
-// Similar lines for thoughts and reactions routes
+
+// Add routes for thoughts and reactions here
+app.use('/api/thoughts', require('./routes/api/thoughts'));
+app.use('/api/reactions', require('./routes/api/reactions'));
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

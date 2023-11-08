@@ -5,7 +5,7 @@ const {
 } = require('../../controllers/reactionsController');
 
 // Route for creating a reaction for a thought
-router.post('/:thoughtId/reactions', createReaction);
+router.post('/:thoughtId/reactions', createReaction); 
 
 // Route for deleting a reaction from a thought
 router.delete('/:thoughtId/reactions/:reactionId', deleteReaction);

@@ -1,8 +1,7 @@
-// seeds/seed.js
 
 const mongoose = require('mongoose');
 const db = require('../routes');
-const usersData = require('./user-seeds'); // Import your seed data
+const usersData = require('./user-seeds'); 
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network', {
   useNewUrlParser: true,

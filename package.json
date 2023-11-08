@@ -1,18 +1,21 @@
 {
-  "name": "your-project-name",
+  "name": "social-media-api",
   "version": "1.0.0",
-  "description": "Your project description",
+  "description": "social media API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"  
+    "start": "node index.js"
   },
- 
   "dependencies": {
+    "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.11.0",
     "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",
     "node.js": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

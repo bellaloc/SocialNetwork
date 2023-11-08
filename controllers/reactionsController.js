@@ -1,4 +1,4 @@
-const { Thought } = require('../routes');
+const { Thought } = require('../models');
 
 const reactionsController = {
   // Create a new reaction for a thought

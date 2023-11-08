@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dateFormat = require('../utils/dateFormat'); // Make sure to define the dateFormat function
+const dateFormat = require('../utils/dateFormat');
 
 const thoughtSchema = new mongoose.Schema(
   {
@@ -19,6 +19,11 @@ const thoughtSchema = new mongoose.Schema(
         ref: 'Reaction',
       },
     ],
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAt) => dateFormat(createdAt),
+    },
   },
   {
     toJSON: {
@@ -29,13 +34,12 @@ const thoughtSchema = new mongoose.Schema(
   }
 );
 
-// Create a virtual field for the reactionCount
 thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
 thoughtSchema.virtual('formattedCreatedAt').get(function () {
-  return dateFormat(this.createdAt); // Use the dateFormat function to format the timestamp
+  return this.createdAt;
 });
 
 thoughtSchema.pre('findOne', function () {
