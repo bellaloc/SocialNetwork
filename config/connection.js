@@ -1,26 +1,18 @@
-// config/database.js
-
 const mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
-
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1/social-network');
-
-mongoose.connection.on('connected', () => {
-  console.log('Connected to MongoDB');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-mongoose.connection.on('error', (err) => {
+const db = mongoose.connection;
+
+db.on('error', (err) => {
   console.error(`MongoDB connection error: ${err}`);
 });
 
-mongoose.connection.on('disconnected', () => {
-  console.log('MongoDB disconnected');
+db.once('open', () => {
+  console.log('Connected to MongoDB');
 });
 
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
-    console.log('MongoDB connection closed through app termination');
-    process.exit(0);
-  });
-});
+module.exports = db;
