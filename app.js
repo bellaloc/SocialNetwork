@@ -1,6 +1,8 @@
 const express = require('express');
 const db = require('./config/connection');
 const routes = require('./routes');
+const usersRouter = require('./routes/api/users');
+app.use('/api/user', usersRouter);
 
 const PORT = process.env.PORT || 3001;
 const app = express();

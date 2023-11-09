@@ -1,14 +1,11 @@
-// controllers/usersController.js
-
-const { User, Thought } = require('../models/user');
-
-
+const { User, Thought } = require('../models');
 
 const usersController = {
   // Get all users
   getAllUsers(req, res) {
+    console.log(User); // Log the User object
     User.find({})
-      .select('-__v') // Exclude the __v field from the response
+      .select('-__v')
       .populate({
         path: 'thoughts',
         select: '-__v',

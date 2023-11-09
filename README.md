@@ -23,7 +23,9 @@ To run this project, follow these steps:
 2. Ensure you have Node.js and MongoDB installed.
 3. Run `npm install` to install the project dependencies.
 4. Configure your environment variables for MongoDB, if necessary.
-5. Start the server by running `npm start`.
+5. node seeds/seed.js
+6. Start the server by running `npm start`.
+7. go to insomnia to do the requests.
 
 ## Usage
 
