@@ -1,4 +1,6 @@
-const { Thought, User } = require('../models');
+// controllers/thoughtsController.js
+
+const { Thought, User } = require('../models/thought');
 
 const thoughtsController = {
   // Get all thoughts
@@ -26,6 +28,7 @@ const thoughtsController = {
     const { thoughtText, username, userId } = req.body;
     Thought.create({ thoughtText, username })
       .then((thought) => {
+        // Add the thought's _id to the associated user's thoughts array
         User.findOneAndUpdate(
           { _id: userId },
           { $push: { thoughts: thought._id } },

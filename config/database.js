@@ -1,3 +1,5 @@
+// config/database.js
+
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;

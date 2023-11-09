@@ -1,3 +1,5 @@
+// routes/api/users.js
+
 const router = require('express').Router();
 const {
   getAllUsers,
