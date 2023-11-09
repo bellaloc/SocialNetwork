@@ -1,7 +1,7 @@
 // models/reaction.js
 
 const mongoose = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+// const dateFormat = require('../utils/dateFormat');
 
 // Reaction schema definition
 const reactionSchema = new mongoose.Schema(
@@ -15,11 +15,11 @@ const reactionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: (createdAt) => dateFormat(createdAt), // Utilize the dateFormat function
-    },
+    // createdAt: {
+    //   type: Date,
+    //   default: Date.now,
+    //   get: (createdAt) => dateFormat(createdAt), // Utilize the dateFormat function
+    //},
   },
   {
     toJSON: {
