@@ -82,11 +82,5 @@ The application includes the following Mongoose models:
 - `username`: String (required)
 - `createdAt`: Date (default value is the current timestamp, formatted on query)
 
-## Contributing
 
-Contributions are welcome. Please follow the [Contributor Covenant](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) when making contributions.
-
-## License
-
-This project is licensed under the [MIT](LICENSE.txt) license.
 
