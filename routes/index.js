@@ -1,10 +1,6 @@
-// routes/index.js
-
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const apiRoutes = require('./api');
-// const authRoutes = require('./auth'); // Routes for user authentication
-// const userRoutes = require('./users'); // Routes for user registration and profile
-// const homeRoutes = require('./home'); // Routes for the homepage
 
 // API routes
 router.use('/api', apiRoutes);
