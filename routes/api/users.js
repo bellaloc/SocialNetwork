@@ -7,6 +7,7 @@ const {
   updateUser,
   deleteUser,
 } = require('../../controllers/usersController');
+const userController = require('../../controllers/usersController');
 
 // Route for getting all users and creating a new user
   router.get('/', userController.getAllUsers);
@@ -18,6 +19,7 @@ const {
 // Route for getting a single user by their _id, updating a user, and deleting a user
 router.route('/:userId')
   .get(getUserById)
+  .get(getAllUsers)
   .put(updateUser)
   .delete(deleteUser);
 
