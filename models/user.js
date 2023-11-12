@@ -1,42 +1,15 @@
-const mongoose = require('mongoose');
-// models/user.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-const userSchema = new mongoose.Schema({
+const User = sequelize.define('User', {
   username: {
-    type: String,
-    unique: true,
-    required: true,
-    trim: true,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
-  },
-  thoughts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Thought',
-    },
-  ],
-  friends: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
   password: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
 });
-
-// User model
-const User = mongoose.model('User', userSchema);
 
 module.exports = User;

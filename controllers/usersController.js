@@ -1,7 +1,5 @@
 const db = require('../models');
 const bcrypt = require('bcrypt');
-const express = require('express');
-const router = express.Router();
 const saltRounds = 10;
 
 const getAllUsers = async (req, res) => {
@@ -11,6 +9,22 @@ const getAllUsers = async (req, res) => {
   } catch (error) {
     console.error('Error in getAllUsers:', error);
     res.status(500).json({ error: 'Failed to get all users', details: error.message });
+  }
+};
+
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await db.User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    console.error('Error in getUserById:', error);
+    res.status(500).json({ error: 'Failed to get user by ID', details: error.message });
   }
 };
 
@@ -38,22 +52,6 @@ const createUser = async (req, res) => {
   } catch (error) {
     console.error('Error in createUser:', error);
     res.status(500).json({ error: 'Failed to create user', details: error.message });
-  }
-};
-
-const getUserById = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const user = await db.User.findByPk(userId);
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.json({ user });
-  } catch (error) {
-    console.error('Error in getUserById:', error);
-    res.status(500).json({ error: 'Failed to get user by ID', details: error.message });
   }
 };
 
@@ -103,8 +101,8 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getAllUsers,
-  createUser,
   getUserById,
+  createUser,
   updateUser,
   deleteUser,
 };

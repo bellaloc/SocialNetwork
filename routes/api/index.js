@@ -1,6 +1,6 @@
-// routes/api/index.js
 
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const userRoutes = require('./users');
 const thoughtRoutes = require('./thoughts');
 const reactionRoutes = require('./reactions');
