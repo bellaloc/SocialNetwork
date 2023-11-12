@@ -9,10 +9,12 @@ const {
 } = require('../../controllers/usersController');
 
 // Route for getting all users and creating a new user
-router.route('/')
-  .get(getAllUsers)
-  .post(createUser);
-
+  router.get('/', userController.getAllUsers);
+  router.get('/', userController.createUser);
+  router.get('/', userController.getUserById);
+  router.get('/', userController.updateUser);
+  router.get('/', userController.deleteUser);
+  
 // Route for getting a single user by their _id, updating a user, and deleting a user
 router.route('/:userId')
   .get(getUserById)

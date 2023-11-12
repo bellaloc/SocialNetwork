@@ -1,108 +1,104 @@
-const db = require('../models');
+const db = require('../models/user');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await db.User.findAll();
-    res.json({ users });
-  } catch (error) {
-    console.error('Error in getAllUsers:', error);
-    res.status(500).json({ error: 'Failed to get all users', details: error.message });
-  }
-};
-
-const getUserById = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const user = await db.User.findByPk(userId);
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+const userController = {
+  getAllUsers: async (req, res) => {
+    try {
+      const users = await db.find();
+      res.json({ users });
+    } catch (error) {
+      console.error('Error in getAllUsers:', error);
+      res.status(500).json({ error: 'Failed to get all users', details: error.message });
     }
+  },
 
-    res.json({ user });
-  } catch (error) {
-    console.error('Error in getUserById:', error);
-    res.status(500).json({ error: 'Failed to get user by ID', details: error.message });
-  }
-};
+  getUserById: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await db.User.findByPk(userId);
 
-const createUser = async (req, res) => {
-  try {
-    const { username, password } = req.body;
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
 
-    if (!username || !password) {
-      return res.status(400).json({ error: 'Username and password fields are required' });
+      res.json({ user });
+    } catch (error) {
+      console.error('Error in getUserById:', error);
+      res.status(500).json({ error: 'Failed to get user by ID', details: error.message });
     }
+  },
 
-    const existingUser = await db.User.findOne({ where: { username } });
+  createUser: async (req, res) => {
+    try {
+      const { username, password } = req.body;
 
-    if (existingUser) {
-      return res.status(400).json({ error: 'Username is already taken' });
-    }
+      if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password fields are required' });
+      }
 
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const existingUser = await db.User.findOne({ where: { username } });
 
-    const user = await db.User.create({ username, password: hashedPassword });
+      if (existingUser) {
+        return res.status(400).json({ error: 'Username is already taken' });
+      }
 
-    req.session.userId = user.id;
-
-    res.status(201).json({ user });
-  } catch (error) {
-    console.error('Error in createUser:', error);
-    res.status(500).json({ error: 'Failed to create user', details: error.message });
-  }
-};
-
-const updateUser = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const { username, password } = req.body;
-
-    const user = await db.User.findByPk(userId);
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    user.username = username || user.username;
-    if (password) {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
-      user.password = hashedPassword;
+
+      const user = await db.User.create({ username, password: hashedPassword });
+
+      req.session.userId = user.id;
+
+      res.status(201).json({ user });
+    } catch (error) {
+      console.error('Error in createUser:', error);
+      res.status(500).json({ error: 'Failed to create user', details: error.message });
     }
+  },
 
-    await user.save();
+  updateUser: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const { username, password } = req.body;
 
-    res.json({ user });
-  } catch (error) {
-    console.error('Error in updateUser:', error);
-    res.status(500).json({ error: 'Failed to update user', details: error.message });
-  }
-};
+      const user = await db.User.findByPk(userId);
 
-const deleteUser = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const user = await db.User.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
 
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      user.username = username || user.username;
+      if (password) {
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        user.password = hashedPassword;
+      }
+
+      await user.save();
+
+      res.json({ user });
+    } catch (error) {
+      console.error('Error in updateUser:', error);
+      res.status(500).json({ error: 'Failed to update user', details: error.message });
     }
+  },
 
-    await user.destroy();
+  deleteUser: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await db.User.findByPk(userId);
 
-    res.status(204).end();
-  } catch (error) {
-    console.error('Error in deleteUser:', error);
-    res.status(500).json({ error: 'Failed to delete user', details: error.message });
-  }
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      await user.destroy();
+
+      res.status(204).end();
+    } catch (error) {
+      console.error('Error in deleteUser:', error);
+      res.status(500).json({ error: 'Failed to delete user', details: error.message });
+    }
+  },
 };
 
-module.exports = {
-  getAllUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-};
+module.exports = userController;
