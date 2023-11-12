@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getAllUsers,
   getUserById,
-  //createUser,
+  createUser,
   updateUser,
   deleteUser,
 } = require('../../controllers/usersController');
@@ -11,7 +11,7 @@ const userController = require('../../controllers/usersController');
 
 // Route for getting all users and creating a new user
   router.get('/', userController.getAllUsers);
-  //router.get('/', userController.createUser);
+  router.get('/', userController.createUser);
   router.get('/', userController.getUserById);
   router.get('/', userController.updateUser);
   router.get('/', userController.deleteUser);
@@ -20,6 +20,7 @@ const userController = require('../../controllers/usersController');
 router.route('/:userId')
   .get(getUserById)
   .get(getAllUsers)
+  .post(createUser)
   .put(updateUser)
   .delete(deleteUser);
 
