@@ -1,7 +1,5 @@
 # SocialNetwork API
 
-![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
-
 ## Description
 
 The Social Network API is a backend application that serves as the foundation for a social network web application. It allows users to share their thoughts, react to friends' thoughts, and manage their friend lists. This API is built using Express.js for routing and a MongoDB database with Mongoose for data modeling.
@@ -35,6 +33,8 @@ To run this project, follow these steps:
 ## API Routes
 
 ### Users
+
+http://localhost:3001/
 
 - `GET /api/users`: Get all users.
 - `GET /api/users/:userId`: Get a single user by their `_id`.
