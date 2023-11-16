@@ -31,10 +31,10 @@ const userController = {
 
   createUser: async (req, res) => {
     try {
-      const { username, password } = req.body;
+      const { username, email, password } = req.body;
 
-      if (!username || !password) {
-        return res.status(400).json({ error: 'Username and password fields are required' });
+      if (!username || !email || !password) {
+        return res.status(400).json({ error: 'Username, email, and password fields are required' });
       }
 
       const existingUser = await db.User.findOne({ where: { username } });
@@ -45,7 +45,7 @@ const userController = {
 
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      const user = await db.User.create({ username, password: hashedPassword });
+      const user = await db.User.create({ username, email, password: hashedPassword });
 
       req.session.userId = user.id;
 
@@ -59,7 +59,7 @@ const userController = {
   updateUser: async (req, res) => {
     try {
       const userId = req.params.userId;
-      const { username, password } = req.body;
+      const { username, email, password } = req.body;
 
       const user = await db.User.findByPk(userId);
 
@@ -68,6 +68,8 @@ const userController = {
       }
 
       user.username = username || user.username;
+      user.email = email || user.email;
+
       if (password) {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         user.password = hashedPassword;

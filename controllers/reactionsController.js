@@ -1,51 +1,55 @@
-// controllers/reactionsController.js
-
 const { Thought } = require('../models');
 
 const reactionsController = {
-  // Create a new reaction for a thought
-  createReaction(req, res) {
-    const { thoughtId } = req.params;
-    const { reactionBody, username } = req.body;
+  createReaction: async (req, res) => {
+    try {
+      const { thoughtId } = req.params;
+      const { reactionBody, username } = req.body;
 
-    Thought.findOneAndUpdate(
-      { _id: thoughtId },
-      {
-        $push: {
-          reactions: { reactionBody, username },
+      const thought = await Thought.findOneAndUpdate(
+        { _id: thoughtId },
+        {
+          $push: {
+            reactions: { reactionBody, username },
+          },
         },
-      },
-      { new: true }
-    )
-      .then((thought) => {
-        if (!thought) {
-          return res.status(404).json({ message: 'Thought not found' });
-        }
-        res.json(thought);
-      })
-      .catch((err) => res.status(500).json(err));
+        { new: true }
+      );
+
+      if (!thought) {
+        return res.status(404).json({ message: 'Thought not found' });
+      }
+
+      res.json(thought);
+    } catch (error) {
+      console.error('Error in createReaction:', error);
+      res.status(500).json({ error: 'Failed to create reaction', details: error.message });
+    }
   },
 
-  // Delete a reaction from a thought
-  deleteReaction(req, res) {
-    const { thoughtId, reactionId } = req.params;
+  deleteReaction: async (req, res) => {
+    try {
+      const { thoughtId, reactionId } = req.params;
 
-    Thought.findOneAndUpdate(
-      { _id: thoughtId },
-      {
-        $pull: {
-          reactions: { _id: reactionId },
+      const thought = await Thought.findOneAndUpdate(
+        { _id: thoughtId },
+        {
+          $pull: {
+            reactions: { _id: reactionId },
+          },
         },
-      },
-      { new: true }
-    )
-      .then((thought) => {
-        if (!thought) {
-          return res.status(404).json({ message: 'Thought not found' });
-        }
-        res.json(thought);
-      })
-      .catch((err) => res.status(500).json(err));
+        { new: true }
+      );
+
+      if (!thought) {
+        return res.status(404).json({ message: 'Thought not found' });
+      }
+
+      res.json(thought);
+    } catch (error) {
+      console.error('Error in deleteReaction:', error);
+      res.status(500).json({ error: 'Failed to delete reaction', details: error.message });
+    }
   },
 };
 
