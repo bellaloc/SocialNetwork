@@ -4,6 +4,8 @@
 
 The Social Network API is a backend application that serves as the foundation for a social network web application. It allows users to share their thoughts, react to friends' thoughts, and manage their friend lists. This API is built using Express.js for routing and a MongoDB database with Mongoose for data modeling.
 
+# video link: https://drive.google.com/file/d/1AzbhN6prxo3meGdNAkcAAgQnX5wMSC4U/view
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -42,10 +44,10 @@ http://localhost:3001/
 - `PUT /api/users/:userId`: Update a user by their `_id`.
 - `DELETE /api/users/:userId`: Delete a user by their `_id`.
 
-### Friends
+<!-- ### Friends
 
 - `POST /api/users/:userId/friends/:friendId`: Add a friend to a user's friend list.
-- `DELETE /api/users/:userId/friends/:friendId`: Remove a friend from a user's friend list.
+- `DELETE /api/users/:userId/friends/:friendId`: Remove a friend from a user's friend list. -->
 
 ### Thoughts
 
