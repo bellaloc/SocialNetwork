@@ -17,7 +17,7 @@ The Social Network API is a backend application that serves as the foundation fo
 
 To run this project, follow these steps:
 
-1. Clone the repository to your local machine.
+1. Clone the repository to your local machine from bash git clone: https://github.com/bellaloc/SocialNetwork
 2. Ensure you have Node.js and MongoDB installed.
 3. Run `npm install` to install the project dependencies.
 4. Configure your environment variables for MongoDB, if necessary.
